@@ -47,6 +47,6 @@ public class Merge extends Example{
 		if(isSorted(a)){
 			show(a);
 		}
-		System.out.println("Merge END!");
+//		System.out.println("Merge END!");
 	}
 }
