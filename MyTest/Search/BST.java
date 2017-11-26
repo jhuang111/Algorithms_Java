@@ -104,6 +104,6 @@ public class BST<Key extends Comparable<Key>,Value>{
 		}
 		bst.show();
 		System.out.println("The minimum of the tree is "+bst.min());
-		System.out.println("The floor under 'M' is "+bst.floor('M'));
+		System.out.println("The floor under 'N' is "+bst.floor('N'));
 	}
 }
