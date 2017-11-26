@@ -47,10 +47,44 @@ public class BST<Key extends Comparable<Key>,Value>{
 			return node.value;
 		}
 	}
+	public Key min(){//求树的最小键
+		return min(root).key;
+	}
+	private Node min(Node node){
+		if(node==null){
+			return null;
+		}
+		if(node.left==null){
+			return node;
+		}
+		return min(node.left);
+	}
+	public Key floor(Key k){//求树中小于等于k的最大值
+		return floor(root,k).key;
+	}
+	private Node floor(Node node,Key k){
+		if(node==null){
+			return null;
+		}
+		int cmp=node.key.compareTo(k);
+		if(cmp==0){//当前节点的键与所求键相同
+			return node;
+		}
+		if(cmp>0){//当前节点的键比所求键大
+			return floor(node.left,k);
+		}
+		Node t=floor(node.right,k);
+		if(t==null){
+			return node;
+		}else{
+			return t;
+		}
+	}
 	public void show(){
         	System.out.println("Preorder traversal:");
 		show(root);
 	}
+	
 	public void show(Node node){
 		if(node == null){
 			return;
@@ -69,5 +103,7 @@ public class BST<Key extends Comparable<Key>,Value>{
 			bst.put(c,n);
 		}
 		bst.show();
+		System.out.println("The minimum of the tree is "+bst.min());
+		System.out.println("The floor under 'M' is "+bst.floor('M'));
 	}
 }
