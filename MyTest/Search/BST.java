@@ -6,7 +6,8 @@ public class BST<Key extends Comparable<Key>,Value>{
 		private Value value;
 		private Node left;
 		private Node right;
-		public Node(Key k,Value v){
+		public Node(Key k,Value v,int n){
+			N=n;
 			key = k;
 			value = v;
 			left=null;
@@ -17,9 +18,9 @@ public class BST<Key extends Comparable<Key>,Value>{
 	public void put(Key k,Value v){//更新或插入函数
 		root=put(root,k,v);//对根节点进行更新
 	}
-	public Node put(Node node,Key k,Value v){//将节点插入以node为根的子树中
+	public Node put(Node node,Key k,Value v){//将节点插入以node为根的子树中,注意N的更新
 		if(node==null){//原树中不存在键为k的节点，新建此节点
-			return new Node(k,v);
+			return new Node(k,v,1);
 		}
 		Key temp=node.key;
 		if(temp.compareTo(k)>0){//当前节点的键值比k大，
@@ -29,6 +30,7 @@ public class BST<Key extends Comparable<Key>,Value>{
 		}else{//当前节点即为目标节点
 			node.value=v;
 		}
+		node.N=size(node.left)+size(node.right)+1;//对节点的N进行更新
 		return node;
 	}
 	public Value get(Key k){//获取键为k的值
@@ -80,11 +82,33 @@ public class BST<Key extends Comparable<Key>,Value>{
 			return t;
 		}
 	}
+	public int size(Node node){
+		if(node == null){
+			return 0;
+		}else{
+			return node.N;
+		}
+	}
+	public Key select(int n){//返回树中第n小的键
+		return select(root,n).key;
+	}
+	private Node select(Node node,int n){//返回以node为节点的第n小的节点
+		if(node==null){
+			return null;
+		}
+		int size=size(node.left);
+		if(size<n){//当前树以左儿子为根的节点数小于n
+			return select(node.right,n-size-1);
+		}else if(size>n){
+			return select(node.left,n);
+		}else{
+			return node;
+		}
+	}
 	public void show(){
-        	System.out.println("Preorder traversal:");
+        System.out.println("Preorder traversal:");
 		show(root);
 	}
-	
 	public void show(Node node){
 		if(node == null){
 			return;
@@ -105,5 +129,8 @@ public class BST<Key extends Comparable<Key>,Value>{
 		bst.show();
 		System.out.println("The minimum of the tree is "+bst.min());
 		System.out.println("The floor under 'N' is "+bst.floor('N'));
+		System.out.println(bst.select(1)+" is larger than 1 nodes");
+		System.out.println(bst.select(2)+" is larger than 2 nodes");
+		System.out.println(bst.select(3)+" is larger than 3 nodes");
 	}
 }
