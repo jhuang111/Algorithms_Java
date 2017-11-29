@@ -105,6 +105,60 @@ public class BST<Key extends Comparable<Key>,Value>{
 			return node;
 		}
 	}
+	public int rank(Key k){//k的排名
+		return rank(root,k);
+	}
+	private int rank(Node node,Key k){
+		if(node==null){
+			return 0;//不存在该键
+		}
+		int cmp=node.key.compareTo(k);
+		if(cmp<0){
+			return rank(node.right,k)+1+size(node.left);
+		}else if(cmp>0){
+			return rank(node.left,k);
+		}else{
+			return size(node);
+		}
+	}
+	public void deleteMin(){
+		deleteMin(root);
+	}
+	private Node deleteMin(Node node){
+		if(node.left==null){
+			return node.right;//最小节点自动删除，父节点左指针指向右子树
+		}
+		node.left=deleteMin(node.left);
+		node.N=size(node.left)+size(node.right)+1;//从后向前，经过的路径依次修改
+		return node;
+	}
+	public void delete(Key k){
+		delete(root,k);
+	}
+	private Node delete(Node node,Key k){
+		if(node==null){
+			return null;
+		}
+		int cmp=node.key.compareTo(k);
+		if(cmp<0){
+			node.right=delete(node.right,k);
+		}else if(cmp>0){
+			node.left=delete(node.left,k);
+		}else{
+			if(node.left==null){
+				return node.right;
+			}
+			if(node.right==null){
+				return node.left;
+			}
+			Node t=node;
+			node=min(t.right);
+			node.right=deleteMin(t.right);
+			node.left=t.left;
+		}
+		node.N=size(node.left)+size(node.right)+1;
+		return node;
+	}
 	public void show(){
         System.out.println("Preorder traversal:");
 		show(root);
@@ -132,5 +186,8 @@ public class BST<Key extends Comparable<Key>,Value>{
 		System.out.println(bst.select(1)+" is larger than 1 nodes");
 		System.out.println(bst.select(2)+" is larger than 2 nodes");
 		System.out.println(bst.select(3)+" is larger than 3 nodes");
+		System.out.println("D is larger than "+bst.rank('D')+" nodes");
+		bst.delete('E');
+		bst.show();
 	}
 }
