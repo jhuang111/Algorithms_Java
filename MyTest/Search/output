@@ -1,27 +1,11 @@
 Preorder traversal:
-The Key is: S, the value is: 0
-The Key is: E, the value is: 12
-The Key is: A, the value is: 8
-The Key is: C, the value is: 4
-The Key is: R, the value is: 3
-The Key is: H, the value is: 5
 The Key is: M, the value is: 9
+The Key is: E, the value is: 1
+The Key is: C, the value is: 4
+The Key is: A, the value is: 2
 The Key is: L, the value is: 11
+The Key is: H, the value is: 5
+The Key is: R, the value is: 3
 The Key is: P, the value is: 10
 The Key is: X, the value is: 7
-The minimum of the tree is A
-The floor under 'N' is M
-C is larger than 1 nodes
-E is larger than 2 nodes
-H is larger than 3 nodes
-D is larger than 2 nodes
-Preorder traversal:
 The Key is: S, the value is: 0
-The Key is: H, the value is: 5
-The Key is: A, the value is: 8
-The Key is: C, the value is: 4
-The Key is: R, the value is: 3
-The Key is: M, the value is: 9
-The Key is: L, the value is: 11
-The Key is: P, the value is: 10
-The Key is: X, the value is: 7
